@@ -33,5 +33,5 @@ jobs:
         pytest
 
     -name: Run a one-line script
-     run: |
+      run: |
         echo Hello,world!
