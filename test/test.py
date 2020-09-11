@@ -33,6 +33,3 @@ def test_create_gene():
     g = plist[0][1]
     print(type(g))
     assert type(g).__name__ == 'DefaultGenome'
-
-def hoge():
-    print(g)
