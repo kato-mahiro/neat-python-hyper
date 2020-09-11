@@ -1,4 +1,4 @@
-num_x = 5
+num_x = 3
 num_y = 3
 input_neuron_position = [
                     [-1,-1],[-1,-2]

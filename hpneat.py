@@ -36,7 +36,7 @@ class HyperNeat:
                     for yout in range(hpneat_config.num_y):
                         self.weight[ _2d_to_1d(xin,yin) ][ _2d_to_1d(xout,yout) ] = \
                             net.activate([xinpos, yinpos, xoutpos, youtpos])[0] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[0]) >= hpneat_config.weight_avail_theshold else None
-                        self.bias[ _2d_to_1d(xin,yin) ][ _2d_to_1d(xout,yout) ] = net.activate_val([xinpos, yinpos, xoutpos, youtpos])[1] 
+                        self.bias[ _2d_to_1d(xin,yin) ][ _2d_to_1d(xout,yout) ] = net.activate([xinpos, yinpos, xoutpos, youtpos])[1] 
 
                         youtpos += 2.0 / (hpneat_config.num_y -1)
                     xoutpos += 2.0 / (hpneat_config.num_x -1)
