@@ -29,3 +29,9 @@ def test_HyperNeat():
     print("activate_val")
     print(my_hyper_neat.activate_val.shape)
     print(my_hyper_neat.activate_val)
+    print("~~~~~~~~~~~~~~~~~")
+
+    my_hyper_neat.activate([1,2])
+
+if __name__=='__main__':
+    test_HyperNeat()
