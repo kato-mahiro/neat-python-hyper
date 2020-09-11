@@ -3,7 +3,7 @@ import hpneat
 
 def test_HyperNeat():
     hpneat.hpneat_config.num_x = 3
-    hpneat.hpneat_config.num_y = 3
+    hpneat.hpneat_config.num_y = 4
     config = neat.Config(neat.DefaultGenome,
                          neat.DefaultReproduction,
                          neat.DefaultSpeciesSet,
@@ -31,7 +31,9 @@ def test_HyperNeat():
     print(my_hyper_neat.activate_val)
     print("~~~~~~~~~~~~~~~~~")
 
-    my_hyper_neat.activate([1,2])
+    my_hyper_neat.activate([1,2,3])
+    my_hyper_neat.activate([1,1,1])
+    my_hyper_neat.activate([0,0,0])
 
 if __name__=='__main__':
     test_HyperNeat()

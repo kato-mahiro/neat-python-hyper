@@ -41,7 +41,7 @@ class HyperNeat:
 
                     for yout in range(hpneat_config.num_y):
                         self.weight[ _2d_to_1d(xin,yin) ][ _2d_to_1d(xout,yout) ] = \
-                            net.activate([xinpos, yinpos, xoutpos, youtpos])[0] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[0]) >= hpneat_config.weight_avail_theshold else None
+                            net.activate([xinpos, yinpos, xoutpos, youtpos])[0] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[0]) >= hpneat_config.weight_avail_theshold else 0.0
                         self.bias[ _2d_to_1d(xin,yin) ][ _2d_to_1d(xout,yout) ] = net.activate([xinpos, yinpos, xoutpos, youtpos])[1] 
 
                         youtpos += 2.0 / (hpneat_config.num_y -1)
@@ -55,6 +55,13 @@ class HyperNeat:
         for n in range(len(input_list)):
             self.activate_val[ hpneat_config.input_neuron_position[n][0] ][ hpneat_config.input_neuron_position[n][1] ] = input_list[n]
         print(self.activate_val)
-        activate_vector = np.reshape(self.activate_val, (1,9))
-        print(activate_vector)
-        print(np.reshape(activate_vector,(3,3)))
+        activate_vec = matrix_to_vector(self.activate_val)
+        activate_vec = np.dot(activate_vec, self.weight)
+        self.activate_val = vector_to_matrix(activate_vec)
+        print(self.activate_val)
+        output_vec = []
+        for n in range(len(hpneat_config.output_neuron_position)):
+            output_vec.append( self.activate_val[ hpneat_config.output_neuron_position[n][0] ][ hpneat_config.output_neuron_position[n][1] ])
+        print(output_vec)
+        return output_vec
+
