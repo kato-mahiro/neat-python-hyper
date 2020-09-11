@@ -3,9 +3,11 @@ import numpy as np
 import hpneat_config
 
 def _2d_to_1d(x:int,y:int) -> int:
+    if(x > hpneat_config.num_x or x < 0 or y > hpneat_config.num_y or y < 0):
+        raise ValueError("argument ouf of range")
     return (hpneat_config.num_y * x)  + y
 
-def _1d_to_2d(xy:int) ->(int,int):
+def _1d_to_2d(xy:int) -> (int,int):
     x = xy // hpneat_config.num_y
     y = xy - (x * hpneat_config.num_y)
     return x,y
