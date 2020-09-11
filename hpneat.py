@@ -3,7 +3,7 @@ import numpy as np
 import hpneat_config
 
 def _2d_to_1d(x:int,y:int) -> int:
-    if(x > hpneat_config.num_x or x < 0 or y > hpneat_config.num_y or y < 0):
+    if(x > hpneat_config.num_x-1 or x < 0 or y > hpneat_config.num_y-1 or y < 0):
         raise ValueError("argument ouf of range")
     return (hpneat_config.num_y * x)  + y
 
