@@ -34,4 +34,4 @@ def test_HyperNeat():
     print(type(g))
     assert type(g).__name__ == 'DefaultGenome'
     net = neat.nn.FeedForwardNetwork.create(g, config)
-    my_hyper_neat = hpneat.HyperNeat(g)
+    my_hyper_neat = hpneat.HyperNeat(net)
