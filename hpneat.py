@@ -12,6 +12,12 @@ def _1d_to_2d(xy:int) -> (int,int):
     y = xy - (x * hpneat_config.num_y)
     return x,y
 
+def matrix_to_vector(mx):
+    return np.reshape(mx, (1, mx.size ) )
+
+def vector_to_matrix(vec):
+    return np.reshape(vec, (hpneat_config.num_x, hpneat_config.num_y) )
+
 class HyperNeat:
     def __init__(self, net):
         self.weight = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
@@ -49,3 +55,6 @@ class HyperNeat:
         for n in range(len(input_list)):
             self.activate_val[ hpneat_config.input_neuron_position[n][0] ][ hpneat_config.input_neuron_position[n][1] ] = input_list[n]
         print(self.activate_val)
+        activate_vector = np.reshape(self.activate_val, (1,9))
+        print(activate_vector)
+        print(np.reshape(activate_vector,(3,3)))
