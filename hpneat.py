@@ -42,3 +42,10 @@ class HyperNeat:
                     xoutpos += 2.0 / (hpneat_config.num_x -1)
                 yinpos += 2.0 / (hpneat_config.num_x -1)
             xinpos += 2.0 / (hpneat_config.num_y -1)
+
+    def activate(self, input_list):
+        if( len(input_list) != len(hpneat_config.input_neuron_position) ):
+            raise ValueError("argument ouf of range")
+        for n in range(len(input_list)):
+            self.activate_val[ hpneat_config.input_neuron_position[n][0] ][ hpneat_config.input_neuron_position[n][1] ] = input_list[n]
+        print(self.activate_val)
