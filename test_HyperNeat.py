@@ -31,9 +31,9 @@ def test_HyperNeat():
     print(my_hyper_neat.activate_val)
     print("~~~~~~~~~~~~~~~~~")
 
-    my_hyper_neat.activate([1,2,3])
-    my_hyper_neat.activate([1,1,1])
-    my_hyper_neat.activate([0,0,0])
+    my_hyper_neat.activate([1,2])
+    my_hyper_neat.activate([1,1])
+    my_hyper_neat.activate([0,0])
 
 if __name__=='__main__':
     test_HyperNeat()

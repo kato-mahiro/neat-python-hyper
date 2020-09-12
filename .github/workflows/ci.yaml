@@ -33,3 +33,4 @@ jobs:
       run: |
         pytest -s test_tools.py
         pytest -s test_HyperNeat.py
+        pytest -s test_HebbianABCModel.py
