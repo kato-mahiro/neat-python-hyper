@@ -36,3 +36,4 @@ jobs:
         pytest -s test_tools.py
         pytest -s test_HyperNeat.py
         pytest -s test_HebbianABCModel.py
+        pytest -s test_update_weight.py
