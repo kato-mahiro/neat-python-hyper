@@ -20,10 +20,14 @@ def vector_to_matrix(vec):
 
 class HyperNeat:
     def __init__(self, net):
+
         self.weight = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
         self.bias = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
         self.activate_val = np.zeros(( hpneat_config.num_x, hpneat_config.num_y ))
 
+        self.set_initial_values(net)
+
+    def set_initial_values(self, net):
         #set initial weight and bias
         xinpos= -1.0
         yinpos= -1.0
