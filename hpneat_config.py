@@ -1,5 +1,5 @@
-num_x = 3
-num_y = 3
+num_x = 2
+num_y = 2
 input_neuron_position = [
                     [0,0],[0,1]
                 ]
