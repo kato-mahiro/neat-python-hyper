@@ -10,6 +10,7 @@ from update_weight import update_weight_for_abc #use cython module
 class HyperNeat:
     def __init__(self, net):
 
+
         self.weight = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
         self.bias = np.zeros((hpneat_config.num_x, hpneat_config.num_y))
         self.activate_val = np.zeros(( hpneat_config.num_x, hpneat_config.num_y ))
@@ -59,8 +60,9 @@ class HyperNeat:
         return output_vec
 
 class HebbianABCModel:
-    def __init__(self, net):
+    def __init__(self, net, is_usecython=True):
 
+        self.is_usecython = is_usecython
         self.weight = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
         self.A = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
         self.B = np.zeros((hpneat_config.num_x * hpneat_config.num_y, hpneat_config.num_x * hpneat_config.num_y))
@@ -117,31 +119,30 @@ class HebbianABCModel:
         self.activate_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(activate_vec) + self.bias)
 
         #update weight
-        self.weight = update_weight_for_abc(hpneat_config.num_x, \
-                                            hpneat_config.num_y, \
-                                            self.weight, \
-                                            pre_activate_val, \
-                                            self.activate_val,\
-                                            self.A, self.B, self.C, self.ita)
+        if(self.is_usecython):
+            self.weight = update_weight_for_abc(hpneat_config.num_x, \
+                                                hpneat_config.num_y, \
+                                                self.weight, \
+                                                pre_activate_val, \
+                                                self.activate_val,\
+                                                self.A, self.B, self.C, self.ita)
 
+        else:
+            for input_ in range( hpneat_config.num_x * hpneat_config.num_y):
+                for output_ in range( hpneat_config.num_x * hpneat_config.num_y):
+                    inputx = tools._1d_to_2d(input_)[0]
+                    inputy = tools._1d_to_2d(input_)[1]
+                    outputx = tools._1d_to_2d(output_)[0]
+                    outputy = tools._1d_to_2d(output_)[1]
 
-        """
-        for input_ in range( hpneat_config.num_x * hpneat_config.num_y):
-            for output_ in range( hpneat_config.num_x * hpneat_config.num_y):
-                inputx = tools._1d_to_2d(input_)[0]
-                inputy = tools._1d_to_2d(input_)[1]
-                outputx = tools._1d_to_2d(output_)[0]
-                outputy = tools._1d_to_2d(output_)[1]
-
-                if(self.weight[input_][output_] != 0.0):
-                    self.weight[input_][output_] += \
-                        self.ita[input_][output_] * \
-                        (
-                            self.A[input_][output_] * pre_activate_val[inputx][inputy] * self.activate_val[outputx][outputy] + \
-                            self.B[input_][output_] * pre_activate_val[inputx][inputy] +\
-                            self.C[input_][output_] * self.activate_val[outputx][outputy]
-                        )
-        """
+                    if(self.weight[input_][output_] != 0.0):
+                        self.weight[input_][output_] += \
+                            self.ita[input_][output_] * \
+                            (
+                                self.A[input_][output_] * pre_activate_val[inputx][inputy] * self.activate_val[outputx][outputy] + \
+                                self.B[input_][output_] * pre_activate_val[inputx][inputy] +\
+                                self.C[input_][output_] * self.activate_val[outputx][outputy]
+                            )
 
         output_vec = []
         for n in range(len(hpneat_config.output_neuron_position)):
