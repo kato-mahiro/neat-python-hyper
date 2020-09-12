@@ -93,7 +93,7 @@ class HebbianABCModel:
 
                     for yout in range(hpneat_config.num_y):
                         self.weight[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] = \
-                            net.activate([xinpos, yinpos, xoutpos, youtpos])[1] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[0]) >= hpneat_config.weight_avail_theshold else 0.0
+                            net.activate([xinpos, yinpos, xoutpos, youtpos])[1] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[1]) >= hpneat_config.weight_avail_theshold else 0.0
                         self.A[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[2]
                         self.B[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[3]
                         self.C[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[4]
