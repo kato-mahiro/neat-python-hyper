@@ -46,12 +46,9 @@ class HyperNeat:
         for n in range(len(input_list)):
             self.activate_val[ hpneat_config.input_neuron_position[n][0] ][ hpneat_config.input_neuron_position[n][1] ] = input_list[n]
 
-        a = lambda x: 1 / (1+math.e ** -x) #sigmoid func
-        np_a = np.frompyfunc(a, 1, 1)
-
         activate_vec = tools.matrix_to_vector(self.activate_val)
         activate_vec = np.dot(activate_vec, self.weight)
-        self.activate_val = np_a(tools.vector_to_matrix(activate_vec) + self.bias)
+        self.activate_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(activate_vec) + self.bias)
 
         output_vec = []
         for n in range(len(hpneat_config.output_neuron_position)):

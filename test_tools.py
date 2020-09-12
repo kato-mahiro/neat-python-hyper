@@ -39,7 +39,18 @@ def test_matrix_to_vector():
     assert m1[1][0] == m2[1][0]
     assert m1.shape == m2.shape
 
+def test_sigmoid_for_np_ndarray():
+    m = np.zeros((2,2))
+    m[0][0] = -1
+    m[0][1] = 0
+    m[1][0] = 1
+    m[1][1] = 2
+    print(" === test sigmoid === ")
+    print(m)
+    print(tools.sigmoid_for_np_ndarray(m))
+
 if __name__=='__main__':
     test_2d_to_1d()
     test_1d_to_2d()
     test_matrix_to_vector()
+    test_sigmoid_for_np_ndarray()

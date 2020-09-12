@@ -1,3 +1,4 @@
+import math
 import numpy as np
 import hpneat_config
 
@@ -16,3 +17,8 @@ def matrix_to_vector(mx):
 
 def vector_to_matrix(vec):
     return np.reshape(vec, (hpneat_config.num_x, hpneat_config.num_y) )
+
+def sigmoid_for_np_ndarray(np_ndarray):
+        sigmoid = lambda x: 1 / (1+math.e ** -x) #sigmoid func
+        np_sigmoid = np.frompyfunc(sigmoid, 1, 1)
+        return np_sigmoid(np_ndarray)
