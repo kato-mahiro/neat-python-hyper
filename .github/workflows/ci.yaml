@@ -36,9 +36,12 @@ jobs:
         python cysetup.py build_ext --inplace
         cd ../
         
+    - name: Build package
+      run: |
+        bash clean.sh
+        python setup.py install
     - name: Test with pytest
       run: |
-        python setup.py install
         pytest -s test/test_tools.py
         pytest -s test/test_HyperNeat.py
         pytest -s test/test_HebbianABCModel.py
