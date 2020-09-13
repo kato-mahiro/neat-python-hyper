@@ -37,9 +37,7 @@ jobs:
         cd ../
         
     - name: Build package
-      run: |
-        bash clean.sh
-        python setup.py install
+      run: python setup.py install
     - name: Test with pytest
       run: |
         pytest -s test/test_tools.py
