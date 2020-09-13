@@ -1,11 +1,13 @@
-import copy
+from copy import deepcopy
 import time
 import neat
 import hpneat
 
+import hpneat_config
+
 def test_HebbianABCModel():
-    hpneat.hpneat_config.num_x = 2
-    hpneat.hpneat_config.num_y = 2
+    hpneat_config.num_x = 2
+    hpneat_config.num_y = 2
     config = neat.Config(neat.DefaultGenome,
                          neat.DefaultReproduction,
                          neat.DefaultSpeciesSet,
@@ -18,9 +20,8 @@ def test_HebbianABCModel():
     print(type(g))
     assert type(g).__name__ == 'DefaultGenome'
     net = neat.nn.FeedForwardNetwork.create(g, config)
-    my_abc_model = hpneat.HebbianABCModel(net)
-    l=[my_abc_model]
-    my_abc_model2 = copy.deepcopy(l)[0]
+    my_abc_model = hpneat.HebbianABCModel(net, hpneat_config)
+    my_abc_model2 = deepcopy(my_abc_model)
     assert my_abc_model is not my_abc_model2
     my_abc_model2.is_usecython = False
 

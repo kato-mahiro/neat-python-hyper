@@ -32,8 +32,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        python setup.py build_ext --inplace
-        pytest -s test_tools.py
-        pytest -s test_HyperNeat.py
-        pytest -s test_HebbianABCModel.py
-        pytest -s test_update_weight.py
+        cd src/
+        python cysetup.py build_ext --inplace
+        cd ..
+        python setup.py install
+        pytest -s test/test_tools.py
+        pytest -s test/test_HyperNeat.py
+        pytest -s test/test_HebbianABCModel.py
+        pytest -s test/test_update_weight.py

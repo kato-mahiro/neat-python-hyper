@@ -2,9 +2,11 @@ import time
 import neat
 import hpneat
 
+import hpneat_config
+
 def test_HebbianABCModel():
-    hpneat.hpneat_config.num_x = 10
-    hpneat.hpneat_config.num_y = 10
+    hpneat_config.num_x = 10
+    hpneat_config.num_y = 10
     config = neat.Config(neat.DefaultGenome,
                          neat.DefaultReproduction,
                          neat.DefaultSpeciesSet,
@@ -17,7 +19,7 @@ def test_HebbianABCModel():
     print(type(g))
     assert type(g).__name__ == 'DefaultGenome'
     net = neat.nn.FeedForwardNetwork.create(g, config)
-    my_abc_model = hpneat.HebbianABCModel(net)
+    my_abc_model = hpneat.HebbianABCModel(net, hpneat_config)
 
     #assert hyperneat parameters
     print("~~~~~~~~~~~~~~~~~")
@@ -53,7 +55,7 @@ def test_HebbianABCModel():
     end = time.time() - start
     print(my_abc_model.weight)
 
-    print("サイズ", hpneat.hpneat_config.num_x, hpneat.hpneat_config.num_y,"で1更新にかかる時間は", end ,"[sec]")
+    print("サイズ", hpneat_config.num_x, hpneat_config.num_y,"で1更新にかかる時間は", end ,"[sec]")
     print("100個体，100ステップの実験なら1世代あたり",end * 10000,"[sec]")
 
 if __name__=='__main__':

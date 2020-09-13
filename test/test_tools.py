@@ -3,9 +3,16 @@ import neat
 import hpneat
 import tools
 
+import hpneat_config
+
+def test_read_setting():
+    print(hpneat_config)
+    print(hpneat_config.num_x)
+    print(hpneat_config.num_y)
+
 def test_2d_to_1d():
-    hpneat.hpneat_config.num_x = 5
-    hpneat.hpneat_config.num_y = 3
+    hpneat_config.num_x = 5
+    hpneat_config.num_y = 3
     assert tools._2d_to_1d(0,0) == 0
     assert tools._2d_to_1d(0,1) == 1
     assert tools._2d_to_1d(0,2) == 2
@@ -14,8 +21,8 @@ def test_2d_to_1d():
     assert tools._2d_to_1d(1,2) == 5
 
 def test_1d_to_2d():
-    hpneat.hpneat_config.num_x = 5
-    hpneat.hpneat_config.num_y = 5
+    hpneat_config.num_x = 5
+    hpneat_config.num_y = 5
     assert tools._1d_to_2d(0) == (0,0)
     assert tools._1d_to_2d(1) == (0,1)
     assert tools._1d_to_2d(2) == (0,2)
@@ -24,9 +31,9 @@ def test_1d_to_2d():
     assert tools._1d_to_2d(5) == (1,0)
 
 def test_matrix_to_vector():
-    hpneat.hpneat_config.num_x = 2
-    hpneat.hpneat_config.num_y = 3
-    m1 = 20 * np.random.random((hpneat.hpneat_config.num_x, hpneat.hpneat_config.num_y)) -10
+    hpneat_config.num_x = 2
+    hpneat_config.num_y = 3
+    m1 = 20 * np.random.random((hpneat_config.num_x, hpneat_config.num_y)) -10
     print(m1)
     vec = tools.matrix_to_vector(m1)
     print(vec)
@@ -50,6 +57,7 @@ def test_sigmoid_for_np_ndarray():
     print(tools.sigmoid_for_np_ndarray(m))
 
 if __name__=='__main__':
+    test_read_setting()
     test_2d_to_1d()
     test_1d_to_2d()
     test_matrix_to_vector()
