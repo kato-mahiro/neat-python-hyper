@@ -30,14 +30,14 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zeroはすべてのエラーを警告として扱う。 GitHubのエディタの幅は127文字
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Build cython
+    - name: Build
       run: |
         cd ./src
         python cysetup.py build_ext --inplace
         cd ../
-        
-    - name: Build package
-      run: python setup.py install
+        echo 'Cython OK'
+        python setup.py install
+        echo 'Build OK'
     - name: Test with pytest
       run: |
         pytest -s test/test_tools.py
