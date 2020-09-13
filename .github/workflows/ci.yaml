@@ -32,9 +32,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        cd ./src
-        python setup.py build_ext --inplace
-        cd ../
         python setup.py install
         pytest -s test/test_tools.py
         pytest -s test/test_HyperNeat.py
