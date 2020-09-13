@@ -35,7 +35,7 @@ jobs:
         cd src
         python setup.py build_ext --inplace
         cd ..
-        bash ./clean
+        bash clean.sh
         python setup.py install
         pytest -s test/test_tools.py
         pytest -s test/test_HyperNeat.py
