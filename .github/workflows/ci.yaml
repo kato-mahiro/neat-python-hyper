@@ -32,6 +32,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        gcc --version
         cd src
         python setup.py build_ext --inplace
         cd ..
