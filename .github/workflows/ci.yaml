@@ -32,12 +32,13 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build
       run: |
+        pip list | grep cython
         cd ./src
         python cysetup.py build_ext --inplace
+        echo 'Cython build OK'
         cd ../
-        echo 'Cython OK'
         python setup.py install
-        echo 'Build OK'
+        echo 'Project build OK'
     - name: Test with pytest
       run: |
         pytest -s test/test_tools.py
