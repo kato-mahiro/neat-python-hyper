@@ -6,6 +6,7 @@ from distutils.core import setup
 
 from Cython.Build import cythonize
 from setuptools import setup, find_packages, Extension
+from numpy import get_include # cimport numpy を使うため
 
 
 def _requires_from_file(filename):
@@ -23,6 +24,7 @@ setup(
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     include_package_data=True,
+    include_dirs=[get_include()]
     #install_requires=_requires_from_file('requirements.txt'),
     zip_safe=False,
     setup_requires=['pytest-runner'],
