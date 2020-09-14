@@ -24,7 +24,7 @@ setup(
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     include_package_data=True,
-    include_dirs=[get_include()]
+    include_dirs=[get_include()],
     #install_requires=_requires_from_file('requirements.txt'),
     zip_safe=False,
     setup_requires=['pytest-runner'],
