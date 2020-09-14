@@ -5,8 +5,8 @@ import hpneat
 import hpneat_config
 
 def test_HebbianABCModel():
-    hpneat_config.num_x = 10
-    hpneat_config.num_y = 10
+    hpneat_config.num_x = 6
+    hpneat_config.num_y = 6
     config = neat.Config(neat.DefaultGenome,
                          neat.DefaultReproduction,
                          neat.DefaultSpeciesSet,

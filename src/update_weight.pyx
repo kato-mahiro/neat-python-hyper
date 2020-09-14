@@ -13,8 +13,14 @@ def c1d_to_2d(int xy, int num_x, int num_y):
     return x,y
 
 # pythonから呼び出す関数
-def update_weight_for_abc(int num_x, int num_y, cnp.ndarray weight, cnp.ndarray pre_activate_val, cnp.ndarray activate_val,\
-                              cnp.ndarray A, cnp.ndarray B, cnp.ndarray C, cnp.ndarray ita ):
+def update_weight_for_abc(int num_x, int num_y,\
+                          cnp.ndarray[double, ndim = 2] weight,
+                          cnp.ndarray[double, ndim = 2] pre_activate_val,\
+                          cnp.ndarray[double, ndim = 2] activate_val,\
+                          cnp.ndarray[double, ndim = 2] A,\
+                          cnp.ndarray[double, ndim = 2] B,\
+                          cnp.ndarray[double, ndim = 2] C,\
+                          cnp.ndarray[double, ndim = 2] ita ):
     cdef:
         int input_, output_, inputx, inputy, outputx, outputy
     for input_ in range(num_x * num_y):
