@@ -22,7 +22,7 @@ jobs:
         pip install flake8 pytest
         pip install numpy
         pip install neat-python==0.92
-        pip install cython
+        pip install cython==0.28.5
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -32,7 +32,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build
       run: |
-        pip list | grep cython
         cd ./src
         python cysetup.py build_ext --inplace
         echo 'Cython build OK'
