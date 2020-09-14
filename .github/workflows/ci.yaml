@@ -33,11 +33,11 @@ jobs:
     - name: Build
       run: |
         cd ./src
-        python3 cysetup.py build_ext --inplace
+        python cysetup.py build_ext --inplace
         echo 'Cython build OK'
         cd ../
         python setup.py install
-        echo3 'Project build OK'
+        echo 'Project build OK'
     - name: Test with pytest
       run: |
         pytest -s test/test_tools.py
