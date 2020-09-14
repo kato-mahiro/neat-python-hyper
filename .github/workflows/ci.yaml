@@ -35,10 +35,12 @@ jobs:
       working-directory: ./src
     - name: Build Project
       run: python setup.py install
-    - name: Test with pytest
-      run: |
-        pytest -s test_tools.py
-        pytest -s test_HyperNeat.py
-        pytest -s test_HebbianABCModel.py
-        pytest -s test_update_weight.py
+    - name: Test tools
+      run: pytest -s test_tools.py
+      working-directory: ./test
+    - name: Test HyperNeat class
+      run: pytest -s test_HyperNeat.py
+      working-directory: ./test
+    - name: Test HebbianABCModel class
+      run: pytest -s test_HebbianABCModel.py
       working-directory: ./test
