@@ -37,7 +37,8 @@ jobs:
       run: python setup.py install
     - name: Test with pytest
       run: |
-        pytest -s test/test_tools.py
-        pytest -s test/test_HyperNeat.py
-        pytest -s test/test_HebbianABCModel.py
-        pytest -s test/test_update_weight.py
+        pytest -s test_tools.py
+        pytest -s test_HyperNeat.py
+        pytest -s test_HebbianABCModel.py
+        pytest -s test_update_weight.py
+      working-directory: ./test
