@@ -121,9 +121,6 @@ class HebbianABCModel(HyperNeat):
         self.activate_val = self.activate_val.astype(np.float64)
 
         #update weight
-        print(self.weight.dtype)
-        print(self.activate_val.dtype)
-        print(pre_activate_val.dtype)
         self.weight = update_weight_for_abc(self.hpneat_config.num_x, \
                                             self.hpneat_config.num_y, \
                                             self.weight, \
