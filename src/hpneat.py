@@ -60,7 +60,7 @@ class HyperNeat:
         return output_vec
 
 class HebbianABCModel(HyperNeat):
-    def __init__(self, net, hpneat_config)
+    def __init__(self, net, hpneat_config):
 
         self.hpneat_config = hpneat_config
 
