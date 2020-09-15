@@ -21,4 +21,4 @@ def vector_to_matrix(vec):
 def sigmoid_for_np_ndarray(np_ndarray):
         sigmoid = lambda x: 1 / (1+math.e ** -x) #sigmoid func
         np_sigmoid = np.frompyfunc(sigmoid, 1, 1)
-        return np_sigmoid(np_ndarray)
+        return np_sigmoid(np_ndarray).astype(np.float64)

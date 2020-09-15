@@ -55,6 +55,7 @@ def test_sigmoid_for_np_ndarray():
     print(" === test sigmoid === ")
     print(m)
     print(tools.sigmoid_for_np_ndarray(m))
+    assert tools.sigmoid_for_np_ndarray(m).dtype == 'float64'
 
 if __name__=='__main__':
     test_read_setting()
