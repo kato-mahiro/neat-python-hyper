@@ -14,10 +14,6 @@ class HyperNeat:
         self.weight = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.bias = np.zeros((self.hpneat_config.num_x, self.hpneat_config.num_y))
         self.activate_val = np.zeros(( self.hpneat_config.num_x, self.hpneat_config.num_y ))
-
-        self.set_initial_values(net)
-
-    def set_initial_values(self, net):
         #set initial weight and bias
         xinpos= -1.0
         yinpos= -1.0
@@ -43,25 +39,25 @@ class HyperNeat:
                 yinpos += 2.0 / (self.hpneat_config.num_x -1)
             xinpos += 2.0 / (self.hpneat_config.num_y -1)
 
-    def activate(self, input_list):
-        if( len(input_list) != len(self.hpneat_config.input_neuron_position) ):
-            raise ValueError("argument ouf of range")
+def activate(self, input_list):
+    if( len(input_list) != len(self.hpneat_config.input_neuron_position) ):
+        raise ValueError("argument ouf of range")
 
-        for n in range(len(input_list)):
-            self.activate_val[ self.hpneat_config.input_neuron_position[n][0] ][ self.hpneat_config.input_neuron_position[n][1] ] = input_list[n]
+    for n in range(len(input_list)):
+        self.activate_val[ self.hpneat_config.input_neuron_position[n][0] ][ self.hpneat_config.input_neuron_position[n][1] ] = input_list[n]
 
-        activate_vec = tools.matrix_to_vector(self.activate_val)
-        activate_vec = np.dot(activate_vec, self.weight)
-        self.activate_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(activate_vec) + self.bias)
+    activate_vec = tools.matrix_to_vector(self.activate_val)
+    activate_vec = np.dot(activate_vec, self.weight)
+    self.activate_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(activate_vec) + self.bias)
 
-        output_vec = []
-        for n in range(len(self.hpneat_config.output_neuron_position)):
-            output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
-        return output_vec
+    output_vec = []
+    for n in range(len(self.hpneat_config.output_neuron_position)):
+        output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
+    return output_vec
 
 class HebbianABCModel(HyperNeat):
     def __init__(self, net, hpneat_config):
-        super().__init__(self, net, hpneat_config):
+        super().__init__(net, hpneat_config)
 
         self.A = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.B = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
@@ -71,9 +67,6 @@ class HebbianABCModel(HyperNeat):
         self.bias = np.zeros((self.hpneat_config.num_x, self.hpneat_config.num_y))
         self.activate_val = np.zeros(( self.hpneat_config.num_x, self.hpneat_config.num_y ))
 
-        self.set_initial_values(net)
-
-    def set_initial_values(self, net):
         #set initial weight and bias
         xinpos= -1.0
         yinpos= -1.0
