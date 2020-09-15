@@ -59,11 +59,12 @@ class HyperNeat:
             output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
         return output_vec
 
-class HebbianABCModel(HyperNeat):
-    def __init__(self, net, hpneat_config)
+class HebbianABCModel:
+    def __init__(self, net, hpneat_config, is_usecython=True):
 
         self.hpneat_config = hpneat_config
 
+        self.is_usecython = is_usecython
         self.weight = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.A = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.B = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
@@ -121,17 +122,36 @@ class HebbianABCModel(HyperNeat):
         self.activate_val = self.activate_val.astype(np.float64)
 
         #update weight
-        print(self.weight.dtype)
-        print(self.activate_val.dtype)
-        print(pre_activate_val.dtype)
-        self.weight = update_weight_for_abc(self.hpneat_config.num_x, \
-                                            self.hpneat_config.num_y, \
-                                            self.weight, \
-                                            pre_activate_val, \
-                                            self.activate_val,\
-                                            self.A, self.B, self.C, self.ita)
+        if(self.is_usecython):
+            print(self.weight.dtype)
+            print(self.activate_val.dtype)
+            print(pre_activate_val.dtype)
+            self.weight = update_weight_for_abc(self.hpneat_config.num_x, \
+                                                self.hpneat_config.num_y, \
+                                                self.weight, \
+                                                pre_activate_val, \
+                                                self.activate_val,\
+                                                self.A, self.B, self.C, self.ita)
+
+        else:
+            for input_ in range( self.hpneat_config.num_x * self.hpneat_config.num_y):
+                for output_ in range( self.hpneat_config.num_x * self.hpneat_config.num_y):
+                    inputx = tools._1d_to_2d(input_)[0]
+                    inputy = tools._1d_to_2d(input_)[1]
+                    outputx = tools._1d_to_2d(output_)[0]
+                    outputy = tools._1d_to_2d(output_)[1]
+
+                    if(self.weight[input_][output_] != 0.0):
+                        self.weight[input_][output_] += \
+                            self.ita[input_][output_] * \
+                            (
+                                self.A[input_][output_] * pre_activate_val[inputx][inputy] * self.activate_val[outputx][outputy] + \
+                                self.B[input_][output_] * pre_activate_val[inputx][inputy] +\
+                                self.C[input_][output_] * self.activate_val[outputx][outputy]
+                            )
 
         output_vec = []
         for n in range(len(self.hpneat_config.output_neuron_position)):
             output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
         return output_vec
+
