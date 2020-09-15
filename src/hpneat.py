@@ -61,10 +61,8 @@ class HyperNeat:
 
 class HebbianABCModel(HyperNeat):
     def __init__(self, net, hpneat_config):
+        super().__init__(self, net, hpneat_config):
 
-        self.hpneat_config = hpneat_config
-
-        self.weight = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.A = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.B = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.C = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
