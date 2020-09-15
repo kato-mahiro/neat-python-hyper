@@ -31,7 +31,7 @@ jobs:
         # exit-zeroはすべてのエラーを警告として扱う。 GitHubのエディタの幅は127文字
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build Cython
-      run: python setup.py build_ext --inplace
+      run: python cysetup.py build_ext --inplace
       working-directory: ./src
     - name: Build Project
       run: python setup.py install
