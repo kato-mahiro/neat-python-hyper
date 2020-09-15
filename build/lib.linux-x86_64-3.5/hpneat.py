@@ -38,6 +38,7 @@ class HyperNeat:
                     xoutpos += 2.0 / (self.hpneat_config.num_x -1)
                 yinpos += 2.0 / (self.hpneat_config.num_x -1)
             xinpos += 2.0 / (self.hpneat_config.num_y -1)
+        print('HyperNeatで初期化')
 
     def activate(self, input_list):
         if( len(input_list) != len(self.hpneat_config.input_neuron_position) ):
@@ -64,9 +65,6 @@ class HebbianABCModel(HyperNeat):
         self.C = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.ita = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
 
-        self.bias = np.zeros((self.hpneat_config.num_x, self.hpneat_config.num_y))
-        self.activate_val = np.zeros(( self.hpneat_config.num_x, self.hpneat_config.num_y ))
-
         #set initial weight and bias
         xinpos= -1.0
         yinpos= -1.0
@@ -78,14 +76,11 @@ class HebbianABCModel(HyperNeat):
 
             for yin in range(self.hpneat_config.num_y):
                 xoutpos = -1.0
-                self.bias[xin][yin] = net.activate([xinpos, yinpos, xinpos, yinpos])[0]
 
                 for xout in range(self.hpneat_config.num_x):
                     youtpos = -1.0
 
                     for yout in range(self.hpneat_config.num_y):
-                        self.weight[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] = \
-                            net.activate([xinpos, yinpos, xoutpos, youtpos])[1] if abs(net.activate([xinpos, yinpos, xoutpos, youtpos])[1]) >= self.hpneat_config.weight_avail_theshold else 0.0
                         self.A[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[2]
                         self.B[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[3]
                         self.C[ tools._2d_to_1d(xin,yin) ][ tools._2d_to_1d(xout,yout) ] =  net.activate([xinpos, yinpos, xoutpos, youtpos])[4]
@@ -95,6 +90,7 @@ class HebbianABCModel(HyperNeat):
                     xoutpos += 2.0 / (self.hpneat_config.num_x -1)
                 yinpos += 2.0 / (self.hpneat_config.num_x -1)
             xinpos += 2.0 / (self.hpneat_config.num_y -1)
+        print('ABCで初期化')
 
     def activate(self, input_list):
 
