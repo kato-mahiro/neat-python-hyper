@@ -6,6 +6,7 @@ import numpy as np
 import tools
 
 from update_weight import update_weight_for_abc #use cython module
+from update_weight import update_weight_for_modulatory
 
 class HyperNeat:
     def __init__(self, net, hpneat_config):
@@ -117,14 +118,13 @@ class HebbianABCModel(HyperNeat):
             output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
         return output_vec
 
-"""
 class ModulatoryHebbianModel(HebbianABCModel):
     def __init__(self, net, hpneat_config):
         super().__init__(net, hpneat_config)
 
         self.modulatory_weight = np.zeros((self.hpneat_config.num_x * self.hpneat_config.num_y, self.hpneat_config.num_x * self.hpneat_config.num_y))
         self.modulatory_bias = np.zeros((self.hpneat_config.num_x, self.hpneat_config.num_y))
-        self.modulated_val = np.zeors((self.hpneat_config.num_x, self.hpneat_config.num_y)
+        self.modulated_val = np.zeros((self.hpneat_config.num_x, self.hpneat_config.num_y))
 
         #set initial weight and bias
         xinpos= -1.0
@@ -163,23 +163,22 @@ class ModulatoryHebbianModel(HebbianABCModel):
         activate_vec = tools.matrix_to_vector(self.activate_val)
         activate_vec = np.dot(activate_vec, self.weight)
         self.activate_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(activate_vec) + self.bias)
-        self.activate_val = self.activate_val.astype(np.float64)
 
         mod_vec = np.dot(activate_vec, self.modulatory_weight)
         self.modulated_val = tools.sigmoid_for_np_ndarray(tools.vector_to_matrix(mod_vec) + self.modulatory_bias)
-        self.modulated_val = self.modulated_val.astype(np.float64)
 
         #update weight
-        self.weight = update_weight_for_abc(self.hpneat_config.num_x, \
+        self.weight = update_weight_for_modulatory(
+                                            self.hpneat_config.num_x, \
                                             self.hpneat_config.num_y, \
                                             self.weight, \
-                                            self.modulatory_weight,
                                             pre_activate_val, \
                                             self.activate_val,\
-                                            self.A, self.B, self.C, self.ita)
+                                            self.modulated_val,\
+                                            self.A, self.B, self.C, self.ita
+                                                 )
 
         output_vec = []
         for n in range(len(self.hpneat_config.output_neuron_position)):
             output_vec.append( self.activate_val[ self.hpneat_config.output_neuron_position[n][0] ][ self.hpneat_config.output_neuron_position[n][1] ])
         return output_vec
-"""

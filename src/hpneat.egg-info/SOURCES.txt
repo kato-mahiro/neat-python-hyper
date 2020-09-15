@@ -11,4 +11,5 @@ src/hpneat.egg-info/not-zip-safe
 src/hpneat.egg-info/top_level.txt
 test/test_HebbianABCModel.py
 test/test_HyperNeat.py
+test/test_ModulatoryHebbianModel.py
 test/test_tools.py
