@@ -44,3 +44,6 @@ jobs:
     - name: Test HebbianABCModel class
       run: pytest -s test_HebbianABCModel.py
       working-directory: ./test
+    - name: Test ModulatoryHebbianModel class
+      run: pytest -s test_ModulatoryHebbianModel.py
+      working-directory: ./test
