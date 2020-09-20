@@ -48,7 +48,7 @@ def test_matrix_to_vector():
 
 def test_sigmoid_for_np_ndarray():
     m = np.zeros((2,2))
-    m[0][0] = -1
+    m[0][0] = -1000
     m[0][1] = 0
     m[1][0] = 1
     m[1][1] = 2

@@ -19,6 +19,9 @@ def vector_to_matrix(vec):
     return np.reshape(vec, (hpneat_config.num_x, hpneat_config.num_y) )
 
 def sigmoid_for_np_ndarray(np_ndarray):
-        sigmoid = lambda x: 1 / (1+math.e ** -x) #sigmoid func
-        np_sigmoid = np.frompyfunc(sigmoid, 1, 1)
-        return np_sigmoid(np_ndarray).astype(np.float64)
+    cut = lambda x:-100 if x < -100 else x
+    np_cut = np.frompyfunc(cut, 1, 1)
+
+    sigmoid = lambda x: 1 / (1+math.e ** -x) #sigmoid func
+    np_sigmoid = np.frompyfunc(sigmoid, 1, 1)
+    return np_sigmoid(np_cut(np_ndarray)).astype(np.float64)
